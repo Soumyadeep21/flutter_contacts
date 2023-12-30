@@ -282,6 +282,8 @@ class FlutterContacts {
                             val phone = PPhone(
                                 getString(Phone.NUMBER),
                                 getString(Phone.NORMALIZED_NUMBER),
+                                    getString(RawContacts.ACCOUNT_TYPE),
+                                    getString(RawContacts.ACCOUNT_NAME),
                                 label,
                                 customLabel,
                                 getInt(Phone.IS_PRIMARY) == 1

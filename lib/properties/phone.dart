@@ -10,6 +10,9 @@ class Phone {
   /// Normalized number, e.g. +12345678900 for +1 (234) 567-8900 (android only).
   String normalizedNumber;
 
+  String accountType;
+  String accountName;
+
   /// Label (default [PhoneLabel.mobile]).
   PhoneLabel label;
 
@@ -23,6 +26,8 @@ class Phone {
   Phone(
     this.number, {
     this.normalizedNumber = '',
+    this.accountType = '',
+    this.accountName = '',
     this.label = PhoneLabel.mobile,
     this.customLabel = '',
     this.isPrimary = false,
@@ -31,6 +36,8 @@ class Phone {
   factory Phone.fromJson(Map<String, dynamic> json) => Phone(
         (json['number'] as String?) ?? '',
         normalizedNumber: (json['normalizedNumber'] as String?) ?? '',
+        accountType: (json['accountType'] as String?) ?? '',
+        accountName: (json['accountName'] as String?) ?? '',
         label: _stringToPhoneLabel[json['label'] as String? ?? ''] ??
             PhoneLabel.mobile,
         customLabel: (json['customLabel'] as String?) ?? '',
@@ -40,6 +47,8 @@ class Phone {
   Map<String, dynamic> toJson() => <String, dynamic>{
         'number': number,
         'normalizedNumber': normalizedNumber,
+        'accountType': accountType,
+        'accountName': accountName,
         'label': _phoneLabelToString[label],
         'customLabel': customLabel,
         'isPrimary': isPrimary,
@@ -49,6 +58,8 @@ class Phone {
   int get hashCode =>
       number.hashCode ^
       normalizedNumber.hashCode ^
+      accountType.hashCode ^
+      accountName.hashCode ^
       label.hashCode ^
       customLabel.hashCode ^
       isPrimary.hashCode;
@@ -58,14 +69,16 @@ class Phone {
       o is Phone &&
       o.number == number &&
       o.normalizedNumber == normalizedNumber &&
+      o.accountType == accountType &&
+      o.accountName == accountName &&
       o.label == label &&
       o.customLabel == customLabel &&
       o.isPrimary == isPrimary;
 
   @override
   String toString() =>
-      'Phone(number=$number, normalizedNumber=$normalizedNumber, label=$label, '
-      'customLabel=$customLabel, isPrimary=$isPrimary)';
+      'Phone(number=$number, normalizedNumber=$normalizedNumber, accountType=$accountType, accountName=$accountName, '
+      'label=$label, customLabel=$customLabel, isPrimary=$isPrimary)';
 
   List<String> toVCard() {
     // TEL (V3): https://tools.ietf.org/html/rfc2426#section-3.3.1
